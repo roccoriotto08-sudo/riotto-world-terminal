@@ -1,0 +1,13 @@
+# Static geography. Transit numbers come only from IMF PortWatch (matched by portwatch_name).
+# Coordinates are approximate centre points for display.
+chokepoints:
+  - { id: HORMUZ,    name: "Strait of Hormuz",     portwatch_name: "Strait of Hormuz",     lat: 26.57, lon: 56.25,  commodities: [OIL, LNG] }
+  - { id: SUEZ,      name: "Suez Canal",           portwatch_name: "Suez Canal",           lat: 30.60, lon: 32.33,  commodities: [OIL, LNG] }
+  - { id: BAB,       name: "Bab el-Mandeb",        portwatch_name: "Bab el-Mandeb Strait", lat: 12.60, lon: 43.33,  commodities: [OIL, LNG] }
+  - { id: MALACCA,   name: "Strait of Malacca",    portwatch_name: "Malacca Strait",       lat: 2.50,  lon: 101.20, commodities: [OIL, LNG] }
+  - { id: PANAMA,    name: "Panama Canal",         portwatch_name: "Panama Canal",         lat: 9.08,  lon: -79.68, commodities: [LNG, GRAINS] }
+  - { id: BOSPORUS,  name: "Bosporus",             portwatch_name: "Bosporus Strait",      lat: 41.12, lon: 29.07,  commodities: [OIL, GRAINS] }
+  - { id: CAPE,      name: "Cape of Good Hope",    portwatch_name: "Cape of Good Hope",    lat: -34.36, lon: 18.47, commodities: [OIL, LNG] }
+  - { id: TAIWAN,    name: "Taiwan Strait",        portwatch_name: "Taiwan Strait",        lat: 24.00, lon: 119.50, commodities: [SEMIS, LNG] }
+  - { id: GIBRALTAR, name: "Strait of Gibraltar",  portwatch_name: "Gibraltar Strait",     lat: 35.95, lon: -5.60,  commodities: [OIL] }
+  - { id: DOVER,     name: "Dover Strait",         portwatch_name: "Dover Strait",         lat: 51.00, lon: 1.45,   commodities: [OIL] }

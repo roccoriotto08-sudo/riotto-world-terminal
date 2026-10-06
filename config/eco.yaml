@@ -1,0 +1,30 @@
+# ECO function: US release calendar from FRED (dates only - FRED does not publish release
+# times) + central-bank meetings from reference/cb_calendar.yaml.
+# No survey/consensus column: there is no free consensus feed, and none is shown.
+# transform: level | chg (difference) | mom (% vs prior period) | yoy (% vs 12 periods back)
+window_past_days: 10
+window_future_days: 45
+releases:
+  - { release_id: 10,  name: "CPI", indicators: [
+      { series: CPIAUCSL, label: "CPI y/y", transform: yoy },
+      { series: CPIAUCSL, label: "CPI m/m", transform: mom },
+      { series: CPILFESL, label: "Core CPI y/y", transform: yoy } ] }
+  - { release_id: 50,  name: "Employment Situation", indicators: [
+      { series: PAYEMS, label: "Nonfarm payrolls Δ (k)", transform: chg },
+      { series: UNRATE, label: "Unemployment rate", transform: level, unit: "%" } ] }
+  - { release_id: 53,  name: "GDP", indicators: [
+      { series: A191RL1Q225SBEA, label: "Real GDP q/q saar", transform: level, unit: "%" } ] }
+  - { release_id: 54,  name: "Personal Income & Outlays", indicators: [
+      { series: PCEPILFE, label: "Core PCE y/y", transform: yoy } ] }
+  - { release_id: 9,   name: "Retail Sales (adv.)", indicators: [
+      { series: RSAFS, label: "Retail sales m/m", transform: mom } ] }
+  - { release_id: 46,  name: "PPI", indicators: [
+      { series: PPIFIS, label: "PPI final demand m/m", transform: mom } ] }
+  - { release_id: 192, name: "JOLTS", indicators: [
+      { series: JTSJOL, label: "Job openings (k)", transform: level } ] }
+  - { release_id: 13,  name: "Industrial Production", indicators: [
+      { series: INDPRO, label: "Industrial production m/m", transform: mom } ] }
+  - { release_id: 27,  name: "Housing Starts", indicators: [
+      { series: HOUST, label: "Housing starts (k saar)", transform: level } ] }
+  - { release_id: 180, name: "Jobless Claims", indicators: [
+      { series: ICSA, label: "Initial claims", transform: level } ] }

@@ -1,0 +1,92 @@
+# Read-through map for geopolitical / weather events (GDELT, ACLED, GDACS).
+# First matching entry wins. `countries` are ISO3; `categories` use the
+# normalized event categories: CONFLICT, PROTEST, SANCTIONS, COERCION, WEATHER, DISASTER.
+# p = analyst PRIOR (config), not a model estimate. min_severity filters noise.
+# commodities tag events for the feed's commodity filter.
+
+maps:
+  - name: Gulf supply risk
+    countries: [SAU, IRN, IRQ, KWT, ARE, QAT, OMN, BHR, YEM]
+    categories: [CONFLICT, COERCION, SANCTIONS]
+    min_severity: 3
+    commodities: [OIL, LNG]
+    assets:
+      - { asset: BRENT, direction: up, p: 0.60 }
+      - { asset: "Tankers (FRO)", direction: up, p: 0.55 }
+      - { asset: "Airlines (JETS)", direction: down, p: 0.55 }
+  - name: Russia / Ukraine energy
+    countries: [RUS, UKR, BLR]
+    categories: [CONFLICT, COERCION, SANCTIONS]
+    min_severity: 3
+    commodities: [OIL, GAS, GRAINS]
+    assets:
+      - { asset: TTF, direction: up, p: 0.58 }
+      - { asset: BRENT, direction: up, p: 0.53 }
+      - { asset: "Wheat", direction: up, p: 0.55 }
+  - name: Taiwan Strait / East Asia
+    countries: [TWN, CHN]
+    categories: [CONFLICT, COERCION]
+    min_severity: 4
+    commodities: [SEMIS]
+    assets:
+      - { asset: "Semis (SOXX)", direction: down, p: 0.62 }
+      - { asset: USDJPY, direction: down, p: 0.52 }
+      - { asset: GOLD, direction: up, p: 0.58 }
+  - name: West Africa / Libya output
+    countries: [NGA, LBY, AGO, DZA]
+    categories: [CONFLICT, PROTEST, COERCION]
+    min_severity: 3
+    commodities: [OIL]
+    assets:
+      - { asset: BRENT, direction: up, p: 0.54 }
+  - name: Andean / Chile copper
+    countries: [CHL, PER, COD, ZMB]
+    categories: [CONFLICT, PROTEST, WEATHER, DISASTER]
+    min_severity: 3
+    commodities: [COPPER]
+    assets:
+      - { asset: COPPER, direction: up, p: 0.56 }
+  - name: US Gulf Coast weather
+    countries: [USA, MEX]
+    categories: [WEATHER, DISASTER]
+    min_severity: 3
+    commodities: [OIL, GAS, LNG]
+    assets:
+      - { asset: HH, direction: up, p: 0.55 }
+      - { asset: "Refining cracks", direction: up, p: 0.55 }
+  - name: Kazakhstan / Caspian
+    countries: [KAZ, AZE]
+    categories: [CONFLICT, PROTEST, COERCION]
+    min_severity: 3
+    commodities: [OIL, URANIUM]
+    assets:
+      - { asset: BRENT, direction: up, p: 0.52 }
+      - { asset: URANIUM, direction: up, p: 0.55 }
+  - name: Venezuela supply
+    countries: [VEN]
+    categories: [CONFLICT, COERCION, SANCTIONS]
+    min_severity: 3
+    commodities: [OIL]
+    assets:
+      - { asset: "Heavy crude diffs", direction: up, p: 0.52 }
+
+# Events within radius_km of a chokepoint inherit its commodities and this read-through
+# (applied only when no country map above matched).
+chokepoint_proximity:
+  radius_km: 350
+  categories: [CONFLICT, COERCION, SANCTIONS]
+  min_severity: 3
+  assets:
+    - { asset: BRENT, direction: up, p: 0.55 }
+    - { asset: "Tanker rates / FRO", direction: up, p: 0.55 }
+
+# Asset / commodity tag -> commodity filter group, used by the feed filter and portfolio matching.
+asset_commodity:
+  BRENT: OIL
+  WTI: OIL
+  HH: GAS
+  TTF: GAS
+  JKM: LNG
+  COPPER: COPPER
+  GOLD: GOLD
+  URANIUM: URANIUM

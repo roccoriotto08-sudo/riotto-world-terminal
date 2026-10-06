@@ -1,0 +1,19 @@
+# Bloomberg-style ticker aliases -> stored series. "<TICKER> <YELLOW KEY> <FUNCTION> <GO>".
+# Yellow keys: GOVT (F2) · EQUITY (F8) · COMDTY (F9) · INDEX (F10) · CRNCY (F11).
+# The curve tenors, ECO series, FX, 10Y yields and watchlist equities are added automatically
+# by backend/app/securities.py; list only hand-made aliases here.
+securities:
+  - { ticker: CL1,      yk: COMDTY, name: "WTI crude (FRED spot close)",   entity: WTI,       metric: price,  aliases: [WTI, CL, USCRWTIC] }
+  - { ticker: CO1,      yk: COMDTY, name: "Brent crude (FRED spot close)", entity: BRENT,     metric: price,  aliases: [BRENT, CO, EUCRBRDT] }
+  - { ticker: NG1,      yk: COMDTY, name: "Henry Hub natural gas (spot)",  entity: HH,        metric: price,  aliases: [HH, NG, NGUSHHUB] }
+  - { ticker: TTF,      yk: COMDTY, name: "EU natural gas (IMF monthly)",  entity: TTF,       metric: price,  aliases: [TZT1] }
+  - { ticker: JKM,      yk: COMDTY, name: "Asia LNG proxy (IMF Japan, monthly)", entity: JKM_PROXY, metric: price, aliases: [] }
+  - { ticker: HG1,      yk: COMDTY, name: "Copper (IMF monthly avg)",      entity: COPPER,    metric: price,  aliases: [COPPER, LMCADS03] }
+  - { ticker: GC1,      yk: COMDTY, name: "Gold (market provider only)",   entity: GOLD,      metric: price,  aliases: [GOLD, XAU] }
+  - { ticker: UX1,      yk: COMDTY, name: "Uranium (IMF monthly)",         entity: URANIUM,   metric: price,  aliases: [URANIUM] }
+  - { ticker: SPX,      yk: INDEX,  name: "S&P 500",                       entity: SPX,       metric: level,  aliases: [] }
+  - { ticker: VIX,      yk: INDEX,  name: "CBOE VIX",                      entity: VIX,       metric: level,  aliases: [] }
+  - { ticker: DXY,      yk: CRNCY,  name: "USD broad index (Fed, DTWEXBGS — not ICE DXY)", entity: USD_INDEX, metric: level, aliases: [USD] }
+  - { ticker: USYC2Y10, yk: INDEX,  name: "US 2s10s spread",               entity: US2S10S,   metric: spread, aliases: [2S10S] }
+  - { ticker: LF98OAS,  yk: INDEX,  name: "US HY OAS (ICE BofA)",          entity: HY_OAS,    metric: spread, aliases: [HY, OAS, HYOAS] }
+  - { ticker: USDJPY,   yk: CRNCY,  name: "USDJPY",                        entity: USDJPY,    metric: fx,     aliases: [JPY] }

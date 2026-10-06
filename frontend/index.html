@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riotto World Terminal</title>
+<link rel="stylesheet" href="vendor/gridstack.min.css">
+<link rel="stylesheet" href="css/terminal.css">
+</head>
+<body>
+<div id="demo-banner" hidden>DEMO MODE — SYNTHETIC DATA FOR UI TESTING ONLY — NOT MARKET DATA</div>
+
+<header id="topbar">
+  <div class="brand"><b>RIOTTO</b><i>//</i>WORLD TERMINAL</div>
+  <form id="cmd-form" autocomplete="off">
+    <span class="prompt" id="prompt">&gt;</span>
+    <input id="cmd" spellcheck="false" placeholder="CL1 COMDTY GP · GC · ECO · TOP · CHN · HORMUZ · HELP">
+    <span class="kbd">/</span>
+    <button type="submit">GO</button>
+  </form>
+  <div id="ykeys" title="Yellow keys (F2 GOVT · F8 EQUITY · F9 COMDTY · F10 INDEX · F11 CRNCY)">
+    <button data-yk="GOVT">GOVT</button><button data-yk="EQUITY">EQUITY</button><button data-yk="COMDTY">COMDTY</button><button data-yk="INDEX">INDEX</button><button data-yk="CRNCY">CRNCY</button>
+  </div>
+  <div id="cmd-msg"></div>
+  <div id="replay-flag" hidden></div>
+  <div id="sessions"></div>
+  <div id="clock">--:--:-- UTC</div>
+  <div id="health" title="Data health: click a feed for detail"></div>
+  <button id="about-btn" title="About, data credits & disclaimer">ABOUT</button>
+</header>
+
+<div id="tape"><div id="tape-inner"></div></div>
+
+<nav id="tabbar">
+  <div id="tabs"></div>
+  <button id="tab-add" title="New workspace tab">+</button>
+  <div class="spacer"></div>
+  <div id="add-wrap">
+    <button id="panel-add" title="Add a panel to this workspace">+ PANEL</button>
+    <div id="panel-menu" hidden></div>
+  </div>
+  <button id="lock-btn" title="Lock / unlock panel positions">UNLOCKED</button>
+  <button id="reset-btn" title="Reset this workspace to its default layout">RESET</button>
+</nav>
+
+<main id="dash"><div id="grid" class="grid-stack"></div></main>
+
+<!-- Singleton panel bodies live here while not placed on the current workspace -->
+<div id="park" hidden>
+
+  <div id="w-globe" class="wbody globe-w">
+    <div class="gtool">
+      <div id="layers" class="chips"></div>
+      <select id="metric-select" title="Choropleth metric"></select>
+      <button id="legend-btn" title="Marker legend">KEY</button>
+    </div>
+    <div id="globe-wrap">
+      <div id="globe"></div>
+      <div id="legend-box" class="overlay">
+        <div id="hud-metric"></div>
+        <div id="legend"></div>
+        <div id="choro-meta" class="meta"></div>
+      </div>
+      <div id="marker-legend-box" class="overlay" hidden><div id="marker-legend"></div></div>
+      <div id="globe-hud" class="dim">drag · scroll · click anything · R reset</div>
+    </div>
+    <section id="scrubber">
+      <div id="windows"></div>
+      <button id="play" title="Replay the window">▶</button>
+      <input id="slider" type="range" min="0" max="30" value="30" disabled>
+      <span id="asof-label">LIVE</span>
+      <span class="dim" id="scrub-note" title="Replay selects the latest observation PERIOD on or before the date. It does not reconstruct as-published vintages, so later revisions and publication lags are not modelled.">replay by observation date · tankers & KPIs live only</span>
+    </section>
+  </div>
+
+  <div id="w-kpi" class="wbody"><section id="kpi-strip"></section></div>
+
+  <div id="w-inspector" class="wbody"><div id="detail"></div></div>
+
+  <div id="w-wire" class="wbody">
+    <section id="feed">
+      <div id="feed-filters">
+        <span id="feed-tabs" class="tabs-inline"><button data-mode="events" class="on">EVENTS</button><button data-mode="news">NEWS <span id="news-badge"></span></button></span>
+        <select id="f-ntopic" hidden><option value="">ALL TOPICS</option><option>WAR</option><option>OIL</option><option>EQUITIES</option><option>MARKETS</option><option>MACRO</option><option>SHIPPING</option><option>WORLD</option></select>
+        <select id="f-kind"><option value="">ALL KINDS</option><option value="ALERT">ALERTS</option><option value="GEO">GEO EVENTS</option></select>
+        <select id="f-sev"><option value="1">SEV ≥1</option><option value="2" selected>SEV ≥2</option><option value="3">SEV ≥3</option><option value="4">SEV ≥4</option><option value="5">SEV 5</option></select>
+        <select id="f-region"><option value="">ALL REGIONS</option></select>
+        <select id="f-comm"><option value="">ALL COMMODITIES</option></select>
+        <select id="f-src"><option value="">ALL SOURCES</option><option>RULES</option><option>GDELT</option><option>ACLED</option><option>GDACS</option></select>
+        <select id="f-days"><option value="1">24H</option><option value="3">3D</option><option value="7" selected>7D</option><option value="30">30D</option></select>
+        <span id="feed-count" class="dim"></span>
+      </div>
+      <div id="feed-table-wrap">
+        <table id="feed-table"><thead></thead><tbody></tbody></table>
+      </div>
+    </section>
+  </div>
+
+  <div id="w-production" class="wbody pad"></div>
+  <div id="w-chokepoints" class="wbody pad"></div>
+  <div id="w-commodities" class="wbody pad"></div>
+  <div id="w-portfolio" class="wbody pad"></div>
+  <div id="w-tankers" class="wbody pad"></div>
+</div>
+
+<script src="vendor/globe.gl.min.js"></script>
+<script src="vendor/gridstack-all.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

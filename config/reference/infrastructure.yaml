@@ -1,0 +1,92 @@
+# Static infrastructure reference: names + APPROXIMATE locations only.
+# No capacities are shown, because there is no free, licence-clean, machine-readable
+# source for them. Plug-in point: Global Energy Monitor trackers
+# (globalenergymonitor.org, CC BY 4.0) or EIA refinery capacity reports can fill
+# `capacity` later; the UI shows it only when present, with its source.
+# Status notes reflect public reporting as of 2025 and are labelled as reference.
+
+sites:
+  # type: refinery | lng_export | lng_import | spr | terminal | hub
+  - { id: jamnagar,    type: refinery,   name: "Jamnagar (Reliance)",           iso3: IND, lat: 22.35, lon: 69.87 }
+  - { id: ruwais,      type: refinery,   name: "Ruwais (ADNOC)",                iso3: ARE, lat: 24.11, lon: 52.73 }
+  - { id: ulsan,       type: refinery,   name: "Ulsan (SK Energy)",             iso3: KOR, lat: 35.47, lon: 129.35 }
+  - { id: yeosu,       type: refinery,   name: "Yeosu (GS Caltex)",             iso3: KOR, lat: 34.85, lon: 127.69 }
+  - { id: port_arthur, type: refinery,   name: "Port Arthur (Motiva)",          iso3: USA, lat: 29.89, lon: -93.96 }
+  - { id: baytown,     type: refinery,   name: "Baytown (ExxonMobil)",          iso3: USA, lat: 29.75, lon: -95.01 }
+  - { id: garyville,   type: refinery,   name: "Garyville (Marathon)",          iso3: USA, lat: 30.06, lon: -90.60 }
+  - { id: ras_tanura_r,type: refinery,   name: "Ras Tanura (Aramco)",           iso3: SAU, lat: 26.64, lon: 50.16 }
+  - { id: pernis,      type: refinery,   name: "Pernis (Shell)",                iso3: NLD, lat: 51.88, lon: 4.38 }
+  - { id: zpc,         type: refinery,   name: "Zhoushan (ZPC)",                iso3: CHN, lat: 30.20, lon: 122.25 }
+  - { id: al_zour,     type: refinery,   name: "Al-Zour (KIPIC)",               iso3: KWT, lat: 28.73, lon: 48.37 }
+  - { id: dangote,     type: refinery,   name: "Dangote (Lekki)",               iso3: NGA, lat: 6.43,  lon: 3.90 }
+  - { id: kirishi,     type: refinery,   name: "Kirishi (KINEF)",               iso3: RUS, lat: 59.45, lon: 32.02 }
+  - { id: paraguana,   type: refinery,   name: "Paraguaná complex (PDVSA)",     iso3: VEN, lat: 11.75, lon: -70.20 }
+  - { id: ras_laffan,  type: lng_export, name: "Ras Laffan LNG",                iso3: QAT, lat: 25.90, lon: 51.55 }
+  - { id: sabine,      type: lng_export, name: "Sabine Pass LNG",               iso3: USA, lat: 29.74, lon: -93.87 }
+  - { id: corpus,      type: lng_export, name: "Corpus Christi LNG",            iso3: USA, lat: 27.88, lon: -97.25 }
+  - { id: cameron,     type: lng_export, name: "Cameron LNG",                   iso3: USA, lat: 30.03, lon: -93.34 }
+  - { id: freeport,    type: lng_export, name: "Freeport LNG",                  iso3: USA, lat: 28.94, lon: -95.31 }
+  - { id: plaquemines, type: lng_export, name: "Plaquemines LNG",               iso3: USA, lat: 29.50, lon: -89.70 }
+  - { id: gorgon,      type: lng_export, name: "Gorgon LNG (Barrow Is.)",       iso3: AUS, lat: -20.79, lon: 115.45 }
+  - { id: ichthys,     type: lng_export, name: "Ichthys LNG (Darwin)",          iso3: AUS, lat: -12.50, lon: 130.85 }
+  - { id: yamal,       type: lng_export, name: "Yamal LNG (Sabetta)",           iso3: RUS, lat: 71.27, lon: 72.07 }
+  - { id: bonny,       type: lng_export, name: "Nigeria LNG (Bonny)",           iso3: NGA, lat: 4.42,  lon: 7.15 }
+  - { id: hammerfest,  type: lng_export, name: "Hammerfest LNG",                iso3: NOR, lat: 70.69, lon: 23.60 }
+  - { id: gate,        type: lng_import, name: "Gate terminal (Rotterdam)",     iso3: NLD, lat: 51.97, lon: 4.03 }
+  - { id: zeebrugge,   type: lng_import, name: "Zeebrugge LNG",                 iso3: BEL, lat: 51.33, lon: 3.20 }
+  - { id: grain,       type: lng_import, name: "Isle of Grain LNG",             iso3: GBR, lat: 51.44, lon: 0.71 }
+  - { id: whv,         type: lng_import, name: "Wilhelmshaven FSRU",            iso3: DEU, lat: 53.56, lon: 8.15 }
+  - { id: sodegaura,   type: lng_import, name: "Sodegaura LNG",                 iso3: JPN, lat: 35.45, lon: 139.97 }
+  - { id: incheon,     type: lng_import, name: "Incheon LNG",                   iso3: KOR, lat: 37.40, lon: 126.60 }
+  - { id: bryan_mound, type: spr,        name: "SPR Bryan Mound",               iso3: USA, lat: 28.93, lon: -95.38 }
+  - { id: big_hill,    type: spr,        name: "SPR Big Hill",                  iso3: USA, lat: 29.78, lon: -94.20 }
+  - { id: west_hack,   type: spr,        name: "SPR West Hackberry",            iso3: USA, lat: 29.99, lon: -93.40 }
+  - { id: bayou_ch,    type: spr,        name: "SPR Bayou Choctaw",             iso3: USA, lat: 30.44, lon: -91.34 }
+  - { id: shibushi,    type: spr,        name: "Shibushi national stockpile",   iso3: JPN, lat: 31.47, lon: 131.11 }
+  - { id: ras_tanura_t,type: terminal,   name: "Ras Tanura export terminal",    iso3: SAU, lat: 26.68, lon: 50.17 }
+  - { id: yanbu,       type: terminal,   name: "Yanbu export terminal",         iso3: SAU, lat: 24.09, lon: 38.06 }
+  - { id: fujairah,    type: terminal,   name: "Fujairah",                      iso3: ARE, lat: 25.12, lon: 56.35 }
+  - { id: novorossiysk,type: terminal,   name: "Novorossiysk / CPC",            iso3: RUS, lat: 44.72, lon: 37.80 }
+  - { id: primorsk,    type: terminal,   name: "Primorsk",                      iso3: RUS, lat: 60.35, lon: 28.70 }
+  - { id: ust_luga,    type: terminal,   name: "Ust-Luga",                      iso3: RUS, lat: 59.68, lon: 28.40 }
+  - { id: ceyhan,      type: terminal,   name: "Ceyhan",                        iso3: TUR, lat: 36.88, lon: 35.93 }
+  - { id: cushing,     type: hub,        name: "Cushing, OK (WTI delivery)",    iso3: USA, lat: 35.98, lon: -96.77 }
+
+# Pipelines: approximate waypoints [lat, lon]; schematic only.
+pipelines:
+  - { id: druzhba,  name: "Druzhba (northern leg)", commodity: OIL, note: "",
+      path: [[54.9, 52.3], [52.85, 32.68], [52.05, 29.25], [52.55, 19.7], [53.06, 14.28]] }
+  - { id: cpc,      name: "Caspian Pipeline Consortium", commodity: OIL, note: "",
+      path: [[46.15, 53.4], [47.1, 51.9], [46.35, 48.04], [45.85, 40.12], [44.72, 37.8]] }
+  - { id: btc,      name: "Baku–Tbilisi–Ceyhan", commodity: OIL, note: "",
+      path: [[40.18, 49.47], [41.7, 44.8], [39.9, 41.27], [36.88, 35.93]] }
+  - { id: petroline,name: "East–West (Petroline)", commodity: OIL, note: "Hormuz bypass",
+      path: [[25.94, 49.68], [24.7, 46.7], [24.09, 38.06]] }
+  - { id: adcop,    name: "Habshan–Fujairah (ADCOP)", commodity: OIL, note: "Hormuz bypass",
+      path: [[23.8, 53.6], [24.5, 55.2], [25.12, 56.35]] }
+  - { id: kirkuk,   name: "Kirkuk–Ceyhan", commodity: OIL, note: "",
+      path: [[35.47, 44.39], [37.1, 42.37], [36.88, 35.93]] }
+  - { id: keystone, name: "Keystone", commodity: OIL, note: "",
+      path: [[52.67, -111.3], [40.0, -96.8], [35.98, -96.77], [29.89, -93.96]] }
+  - { id: tmx,      name: "Trans Mountain", commodity: OIL, note: "",
+      path: [[53.55, -113.5], [52.9, -118.1], [49.28, -122.95]] }
+  - { id: turkstream, name: "TurkStream", commodity: GAS, note: "",
+      path: [[44.9, 37.3], [43.0, 32.0], [41.63, 28.1]] }
+  - { id: pos,      name: "Power of Siberia", commodity: GAS, note: "",
+      path: [[60.9, 110.5], [56.0, 117.0], [53.0, 124.0], [50.27, 127.53]] }
+  - { id: nordstream, name: "Nord Stream 1/2", commodity: GAS, note: "Damaged Sept 2022; not flowing (reference)",
+      path: [[60.6, 28.5], [57.5, 19.5], [55.0, 15.5], [54.14, 13.66]] }
+
+# Schematic seaborne lanes drawn as arcs through chokepoint waypoints.
+# They carry NO volume numbers; arc colour = worst status of the chokepoints passed.
+routes:
+  - { id: meg_china_crude,   name: "MEG → China crude",       commodity: OIL, from: [26.68, 50.17], via: [HORMUZ, MALACCA], to: [29.87, 121.55] }
+  - { id: meg_europe_crude,  name: "MEG → NW Europe crude",   commodity: OIL, from: [26.68, 50.17], via: [HORMUZ, BAB, SUEZ, GIBRALTAR], to: [51.95, 4.10] }
+  - { id: meg_europe_cape,   name: "MEG → NW Europe via Cape",commodity: OIL, from: [26.68, 50.17], via: [HORMUZ, CAPE], to: [51.95, 4.10] }
+  - { id: qatar_japan_lng,   name: "Qatar → Japan LNG",       commodity: LNG, from: [25.90, 51.55], via: [HORMUZ, MALACCA], to: [35.45, 139.90] }
+  - { id: qatar_europe_lng,  name: "Qatar → Europe LNG",      commodity: LNG, from: [25.90, 51.55], via: [HORMUZ, BAB, SUEZ], to: [51.33, 3.20] }
+  - { id: usgc_asia_lng,     name: "USGC → Asia LNG",         commodity: LNG, from: [29.74, -93.87], via: [PANAMA], to: [35.45, 139.90] }
+  - { id: usgc_europe_lng,   name: "USGC → Europe LNG",       commodity: LNG, from: [29.74, -93.87], via: [], to: [51.97, 4.03] }
+  - { id: waf_india_crude,   name: "W. Africa → India crude", commodity: OIL, from: [4.42, 7.15], via: [CAPE], to: [22.35, 69.87] }
+  - { id: baltic_india_crude,name: "Baltic → India crude",    commodity: OIL, from: [60.35, 28.70], via: [DOVER, GIBRALTAR, SUEZ, BAB], to: [22.35, 69.87] }
+  - { id: blacksea_india,    name: "Black Sea → India crude", commodity: OIL, from: [44.72, 37.80], via: [BOSPORUS, SUEZ, BAB], to: [22.35, 69.87] }

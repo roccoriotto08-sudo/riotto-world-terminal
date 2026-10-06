@@ -1,0 +1,30 @@
+# Shown in the ABOUT panel and at /api/credits. Keep this accurate when adding feeds.
+author: Rocco Riotto
+project: Riotto World Terminal
+summary: >-
+  A Bloomberg-style global macro and supply-shock monitor: a live 3D globe with oil output, shipping
+  chokepoints, live AIS tankers, central-bank rates and geopolitical events, plus a KPI monitor,
+  Treasury curve, economic calendar, charts and a live news wire, in draggable workspaces.
+disclaimer: >-
+  For information and demonstration only - not investment advice. Data can be delayed, revised,
+  incomplete or wrong; every value shows its source and observation date. Read-through
+  probabilities are configured priors, not model forecasts. Tanker positions are AIS broadcasts
+  (vessels with AIS off are invisible) and estimated positions are labelled as such.
+sources:
+  - { name: "FRED, Federal Reserve Bank of St. Louis", use: "Treasury yields, FX, oil & gas spot, IMF commodity prices, OECD 10Y yields, economic releases", terms: "https://fred.stlouisfed.org/legal/", note: "Series carry their originators' terms; licence-restricted series (S&P 500, ICE BofA HY OAS, Cboe VIX) are not shown on the public site." }
+  - { name: "U.S. Energy Information Administration", use: "petroleum and natural gas statistics", terms: "https://www.eia.gov/about/copyrights_reuse.php" }
+  - { name: "JODI-Oil (Joint Organisations Data Initiative)", use: "monthly crude production by country", terms: "https://www.jodidata.org/" }
+  - { name: "IMF PortWatch", use: "daily chokepoint transit counts", terms: "https://www.imf.org/external/terms.htm" }
+  - { name: "Bank for International Settlements", use: "central bank policy rates", terms: "https://www.bis.org/terms_conditions.htm" }
+  - { name: "World Bank World Development Indicators", use: "GDP growth, CPI, current account", terms: "https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets (CC BY 4.0)" }
+  - { name: "GDELT Project", use: "geocoded news events", terms: "https://www.gdeltproject.org/about.html#termsofuse" }
+  - { name: "GDACS (UN / European Commission JRC)", use: "natural-hazard alerts", terms: "https://www.gdacs.org/About/termofuse.aspx" }
+  - { name: "Fintraffic / Digitraffic", use: "live AIS vessel data, Baltic", terms: "https://www.digitraffic.fi/en/terms-of-service/ (CC BY 4.0)" }
+  - { name: "AISStream.io", use: "live AIS vessel data (when enabled)", terms: "https://aisstream.io" }
+  - { name: "News publishers (RSS)", use: "headlines with links to the original articles: BBC, Al Jazeera, NPR, The Guardian, Defense News, OilPrice.com, CNBC, EIA, gCaptain, Hellenic Shipping News, MarketWatch, Yahoo Finance, Seeking Alpha, Investing.com, Federal Reserve", terms: "Headlines and links only; articles remain the property of their publishers." }
+  - { name: "Natural Earth", use: "country boundaries", terms: "https://www.naturalearthdata.com/about/terms-of-use/ (public domain)" }
+software:
+  - { name: "globe.gl", license: "MIT" }
+  - { name: "three.js", license: "MIT" }
+  - { name: "GridStack.js", license: "MIT" }
+  - { name: "FastAPI, httpx, pydantic, uvicorn", license: "MIT / BSD" }

@@ -1,0 +1,53 @@
+# Global runtime settings. Per-provider poll intervals, rate limits and
+# staleness thresholds live here so the README budget table has a single source.
+#
+# interval_s      : seconds between polls when healthy
+# stale_after_s   : if the last successful poll is older than this, values go STALE
+# rate_per_min    : self-imposed client-side ceiling (below the provider's hard limit)
+# daily_limit     : hard daily request/credit budget (null = none); adapter stops and goes STALE when spent
+# backfill_years  : history fetched on first run (feeds the 1M/3M/1Y/5Y scrubber)
+
+providers:
+  FRED:        { interval_s: 3600,  stale_after_s: 10800,  rate_per_min: 100, daily_limit: null, backfill_years: 6 }
+  EIA:         { interval_s: 3600,  stale_after_s: 10800,  rate_per_min: 30,  daily_limit: null, backfill_years: 6 }
+  MARKET:      { interval_s: 15,    stale_after_s: 180,    rate_per_min: null, daily_limit: null }   # overridden per provider tier below
+  WORLDBANK:   { interval_s: 86400, stale_after_s: 259200, rate_per_min: 30,  daily_limit: null, backfill_years: 10 }
+  BIS:         { interval_s: 21600, stale_after_s: 86400,  rate_per_min: 10,  daily_limit: null, backfill_years: 6 }
+  JODI:        { interval_s: 86400, stale_after_s: 259200, rate_per_min: 10,  daily_limit: null, backfill_years: 6 }
+  PORTWATCH:   { interval_s: 21600, stale_after_s: 86400,  rate_per_min: 20,  daily_limit: null, backfill_days: 1900 }
+  GDELT:       { interval_s: 900,   stale_after_s: 3600,   rate_per_min: 20,  daily_limit: null, backfill_files: 8 }
+  ACLED:       { interval_s: 21600, stale_after_s: 86400,  rate_per_min: 10,  daily_limit: null, backfill_days: 365 }
+  GDACS:       { interval_s: 1800,  stale_after_s: 7200,   rate_per_min: 10,  daily_limit: null, backfill_days: 365 }
+  DIGITRAFFIC: { interval_s: 60,    stale_after_s: 600,    rate_per_min: 10,  daily_limit: null }
+  AISSTREAM:   { interval_s: 5,     stale_after_s: 600,    rate_per_min: null, daily_limit: null, session_s: 900 }   # websocket; interval = reconnect pause
+  NEWS:        { interval_s: 120,   stale_after_s: 900,    rate_per_min: 30,  daily_limit: null }
+  OPEC_CFG:    { interval_s: 300,   stale_after_s: 100000000, rate_per_min: null, daily_limit: null }
+  DEMO:        { interval_s: 10,    stale_after_s: 60,     rate_per_min: null, daily_limit: null }
+
+# Market-data tiers. MARKET_TIER in .env selects one. Intervals are floors; the
+# adapter widens the interval automatically so (symbols x polls/day) fits daily_limit.
+market_tiers:
+  twelvedata_free:  { interval_s: 60, rate_per_min: 8,   daily_limit: 800 }
+  twelvedata_paid:  { interval_s: 15, rate_per_min: 600, daily_limit: null }
+  finnhub_free:     { interval_s: 15, rate_per_min: 55,  daily_limit: null }
+  polygon_free:     { interval_s: 60, rate_per_min: 5,   daily_limit: null }
+  polygon_paid:     { interval_s: 5,  rate_per_min: 1000, daily_limit: null }
+
+http:
+  timeout_s: 30
+  max_attempts: 4          # per request, exponential backoff between attempts
+  backoff_base_s: 2
+  backoff_cap_s: 60
+  user_agent: "riotto-world-terminal/0.1 (+self-hosted research terminal)"
+
+alerts:
+  production_drop_mom_pct: -3.0       # pulsing red producer marker threshold (layer 1)
+
+chokepoints:
+  recent_window_days: 7
+  baseline_window_days: 90             # baseline = the 90 days ending where the recent window starts
+  disrupted_pct: -35                   # recent avg vs baseline -> DISRUPTED
+  elevated_pct: -15                    # -> ELEVATED
+
+crosscheck:
+  production_pct_threshold: 5.0        # flag EIA vs JODI disagreement above this

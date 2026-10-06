@@ -1,0 +1,11 @@
+# OPEC+ required production ("quota"), MAINTAINED BY YOU.
+# There is no free machine-readable feed: OPEC publishes required-production tables
+# in press releases and the MOMR PDF (https://www.opec.org/opec_web/en/publications/338.htm).
+# Entries are validated (ISO3, kb/d, YYYY-MM, source URL required). The UI shows
+# them as "QUOTA (manual cfg)" next to actual output from JODI/EIA. Leave empty to
+# hide quota-vs-actual; nothing is ever inferred.
+#
+# Example (do not uncomment without checking the current OPEC release):
+#   - { iso3: SAU, month: "2026-09", quota_kbd: 0000, source: "https://www.opec.org/...", entered: "2026-10-01" }
+
+quotas: []

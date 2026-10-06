@@ -1,0 +1,98 @@
+# FRED series -> normalized (entity, metric).
+# license: restricted = the copyright holder prohibits reproduction without permission. Fetched for
+# private use only; with PUBLIC_MODE=true these series are not fetched or served at all. Every ID here was checked to exist
+# on fred.stlouisfed.org (2026-10). invert: true stores 1/value (USD-per-unit quotes
+# turned into local-per-USD) and tags the observation INVERTED.
+
+series:
+  # --- KPI strip ---
+  - { id: DCOILWTICO,   entity: WTI,       metric: price,  unit: USD/bbl,   cadence: daily }
+  - { id: DCOILBRENTEU, entity: BRENT,     metric: price,  unit: USD/bbl,   cadence: daily }
+  - { id: DHHNGSP,      entity: HH,        metric: price,  unit: USD/MMBtu, cadence: daily }
+  - { id: PNGASEUUSDM,  entity: TTF,       metric: price,  unit: USD/MMBtu, cadence: monthly }
+  - { id: PNGASJPUSDM,  entity: JKM_PROXY, metric: price,  unit: USD/MMBtu, cadence: monthly }
+  - { id: DTWEXBGS,     entity: USD_INDEX, metric: level,  unit: index,     cadence: daily }
+  - { id: DGS10,        entity: UST10Y,    metric: yield,  unit: "%",       cadence: daily }
+  - { id: DGS2,         entity: UST2Y,     metric: yield,  unit: "%",       cadence: daily }
+  - { id: T10Y2Y,       entity: US2S10S,   metric: spread, unit: "%",       cadence: daily }
+  - { id: VIXCLS,       entity: VIX,       metric: level,  unit: index,     cadence: daily, license: restricted }   # Cboe
+  - { id: BAMLH0A0HYM2, entity: HY_OAS,    metric: spread, unit: "%",       cadence: daily, license: restricted }   # ICE BofA
+  - { id: PCOPPUSDM,    entity: COPPER,    metric: price,  unit: USD/t,     cadence: monthly }
+  - { id: PURANUSDM,    entity: URANIUM,   metric: price,  unit: USD/lb,    cadence: monthly }
+  - { id: DEXJPUS,      entity: USDJPY,    metric: fx,     unit: JPY per USD, cadence: daily }
+  - { id: SP500,        entity: SPX,       metric: level,  unit: index,     cadence: daily, license: restricted }   # S&P Dow Jones
+
+  # --- FX vs USD for the macro layer (entity = ISO3, or EA for the euro area) ---
+  - { id: DEXUSEU, entity: EA,  metric: fx_per_usd, unit: local per USD, cadence: daily, invert: true }
+  - { id: DEXUSUK, entity: GBR, metric: fx_per_usd, unit: local per USD, cadence: daily, invert: true }
+  - { id: DEXUSAL, entity: AUS, metric: fx_per_usd, unit: local per USD, cadence: daily, invert: true }
+  - { id: DEXJPUS, entity: JPN, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXCHUS, entity: CHN, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXCAUS, entity: CAN, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXKOUS, entity: KOR, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXINUS, entity: IND, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXBZUS, entity: BRA, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXMXUS, entity: MEX, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXSZUS, entity: CHE, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXNOUS, entity: NOR, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXSDUS, entity: SWE, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXSFUS, entity: ZAF, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXTHUS, entity: THA, metric: fx_per_usd, unit: local per USD, cadence: daily }
+  - { id: DEXSIUS, entity: SGP, metric: fx_per_usd, unit: local per USD, cadence: daily }
+
+  # --- 10Y government yields (OECD long-term rate, monthly avg) ---
+  - { id: IRLTLT01USM156N, entity: USA, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01DEM156N, entity: DEU, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01FRM156N, entity: FRA, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01ITM156N, entity: ITA, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01ESM156N, entity: ESP, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01NLM156N, entity: NLD, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01BEM156N, entity: BEL, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01ATM156N, entity: AUT, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01PTM156N, entity: PRT, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01GRM156N, entity: GRC, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01IEM156N, entity: IRL, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01FIM156N, entity: FIN, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01DKM156N, entity: DNK, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01SEM156N, entity: SWE, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01NOM156N, entity: NOR, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01CHM156N, entity: CHE, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01GBM156N, entity: GBR, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01PLM156N, entity: POL, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01CZM156N, entity: CZE, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01HUM156N, entity: HUN, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01ILM156N, entity: ISR, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01JPM156N, entity: JPN, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01KRM156N, entity: KOR, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01AUM156N, entity: AUS, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01NZM156N, entity: NZL, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01CAM156N, entity: CAN, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01MXM156N, entity: MEX, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01CLM156N, entity: CHL, metric: yield_10y, unit: "%", cadence: monthly }
+  - { id: IRLTLT01ZAM156N, entity: ZAF, metric: yield_10y, unit: "%", cadence: monthly }
+  # No OECD 10Y series on FRED for CHN, IND, BRA, COL: they show NO DATA rather than a proxy.
+
+  # --- US Treasury constant-maturity curve (GC function). UST2Y / UST10Y are above. ---
+  - { id: DGS1MO, entity: UST1M,  metric: yield, unit: "%", cadence: daily }
+  - { id: DGS3MO, entity: UST3M,  metric: yield, unit: "%", cadence: daily }
+  - { id: DGS6MO, entity: UST6M,  metric: yield, unit: "%", cadence: daily }
+  - { id: DGS1,   entity: UST1Y,  metric: yield, unit: "%", cadence: daily }
+  - { id: DGS3,   entity: UST3Y,  metric: yield, unit: "%", cadence: daily }
+  - { id: DGS5,   entity: UST5Y,  metric: yield, unit: "%", cadence: daily }
+  - { id: DGS7,   entity: UST7Y,  metric: yield, unit: "%", cadence: daily }
+  - { id: DGS20,  entity: UST20Y, metric: yield, unit: "%", cadence: daily }
+  - { id: DGS30,  entity: UST30Y, metric: yield, unit: "%", cadence: daily }
+
+  # --- US economic releases (ECO function). entity US_ECO, metric = FRED series id ---
+  - { id: CPIAUCSL,        entity: US_ECO, metric: CPIAUCSL,        unit: index,  cadence: monthly }
+  - { id: CPILFESL,        entity: US_ECO, metric: CPILFESL,        unit: index,  cadence: monthly }
+  - { id: PAYEMS,          entity: US_ECO, metric: PAYEMS,          unit: k,      cadence: monthly }
+  - { id: UNRATE,          entity: US_ECO, metric: UNRATE,          unit: "%",    cadence: monthly }
+  - { id: A191RL1Q225SBEA, entity: US_ECO, metric: A191RL1Q225SBEA, unit: "%",    cadence: quarterly }
+  - { id: PCEPILFE,        entity: US_ECO, metric: PCEPILFE,        unit: index,  cadence: monthly }
+  - { id: RSAFS,           entity: US_ECO, metric: RSAFS,           unit: USD mn, cadence: monthly }
+  - { id: PPIFIS,          entity: US_ECO, metric: PPIFIS,          unit: index,  cadence: monthly }
+  - { id: JTSJOL,          entity: US_ECO, metric: JTSJOL,          unit: k,      cadence: monthly }
+  - { id: INDPRO,          entity: US_ECO, metric: INDPRO,          unit: index,  cadence: monthly }
+  - { id: HOUST,           entity: US_ECO, metric: HOUST,           unit: k,      cadence: monthly }
+  - { id: ICSA,            entity: US_ECO, metric: ICSA,            unit: count,  cadence: weekly }

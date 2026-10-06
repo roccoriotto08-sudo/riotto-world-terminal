@@ -1,0 +1,51 @@
+# Per-metric sanity bounds. Anything outside is QUARANTINED (logged, never shown).
+# Keys are "<entity>.<metric>" (exact) or "*.<metric>" (any entity). Exact wins.
+#   min / max          : hard bounds on the value (after unit normalization)
+#   min_exclusive      : value must be strictly greater (rejects a Brent print of 0)
+#   max_move_pct       : max |% change| vs the previous observation from the same source
+#   max_move_abs       : max |absolute change| (use for rates/spreads in %)
+
+bounds:
+  WTI.price:       { min: -60, max: 400, max_move_pct: 60 }     # WTI did settle at -37.63 on 2020-04-20
+  BRENT.price:     { min_exclusive: 0, max: 400, max_move_pct: 50 }
+  HH.price:        { min_exclusive: 0, max: 60, max_move_pct: 400 }   # spot spikes in cold snaps: Feb-2021 Uri +290% d/d
+  TTF.price:       { min_exclusive: 0, max: 150, max_move_pct: 120 }
+  JKM_PROXY.price: { min_exclusive: 0, max: 150, max_move_pct: 120 }
+  COPPER.price:    { min_exclusive: 500, max: 40000, max_move_pct: 30 }
+  GOLD.price:      { min_exclusive: 200, max: 20000, max_move_pct: 20 }
+  URANIUM.price:   { min_exclusive: 0, max: 500, max_move_pct: 60 }
+  USD_INDEX.level: { min: 50, max: 200, max_move_pct: 5 }
+  VIX.level:       { min: 5, max: 150, max_move_pct: 200 }
+  SPX.level:       { min: 100, max: 50000, max_move_pct: 25 }
+  USDJPY.fx:       { min: 50, max: 400, max_move_pct: 10 }
+  UST10Y.yield:    { min: -2, max: 25, max_move_abs: 1.0 }
+  UST2Y.yield:     { min: -2, max: 25, max_move_abs: 1.0 }
+  "*.yield":       { min: -2, max: 25, max_move_abs: 1.5 }      # curve tenors
+  US2S10S.spread:  { min: -5, max: 5, max_move_abs: 1.0 }
+  HY_OAS.spread:   { min: 1, max: 30, max_move_abs: 3.0 }
+  "*.fx_per_usd":  { min_exclusive: 0, max: 1000000, max_move_pct: 40 }
+  "*.yield_10y":   { min: -2, max: 60, max_move_abs: 8 }
+  "*.policy_rate": { min: -1, max: 200, max_move_abs: 40 }   # ARG cut 133 -> 100 in Dec 2023
+  "*.gdp_growth":  { min: -60, max: 100 }
+  "*.cpi":         { min: -30, max: 100000 }
+  "*.current_account": { min: -100, max: 100 }
+  "*.crude_prod":  { min: 0, max: 25000, max_move_pct: 400 }    # kb/d. 400% guards unit slips (bbl/d vs kb/d)
+  "*.opec_quota":  { min: 0, max: 15000 }
+  "*.transits_total":  { min: 0, max: 2000 }
+  "*.transits_tanker": { min: 0, max: 1000 }
+  "*.capacity_tanker": { min: 0, max: 100000000 }
+  USA.crude_prod_weekly: { min: 5000, max: 20000, max_move_pct: 25 }
+  USA.crude_stocks_comm: { min: 100, max: 800, max_move_pct: 10 }   # million bbl
+  USA.crude_stocks_spr:  { min: 50, max: 800, max_move_pct: 10 }
+  USA.gas_storage_l48:   { min: 0, max: 5000, max_move_pct: 15 }    # Bcf
+
+# Choropleth metrics. scale: diverging (mid = neutral) or sequential.
+choropleth:
+  gdp_growth:      { label: "GDP growth y/y",        unit: "%",     source: WORLDBANK, scale: diverging, mid: 0,  domain: [-5, 8],  cadence: annual }
+  cpi:             { label: "CPI inflation y/y",     unit: "%",     source: WORLDBANK, scale: sequential, domain: [0, 15], cadence: annual }
+  policy_rate:     { label: "Policy rate",           unit: "%",     source: BIS,       scale: sequential, domain: [0, 15], cadence: daily }
+  yield_10y:       { label: "10Y govt yield",        unit: "%",     source: FRED,      scale: sequential, domain: [0, 10], cadence: monthly }
+  crude_prod_yoy:  { label: "Crude output y/y",      unit: "%",     source: JODI,      scale: diverging, mid: 0, domain: [-15, 15], cadence: monthly, derived_from: crude_prod }
+  fx_1m:           { label: "FX vs USD 1M (+ = local stronger)", unit: "%", source: FRED, scale: diverging, mid: 0, domain: [-5, 5], cadence: daily, derived_from: fx_per_usd }
+  # [YOUR METRIC] slot -> current account balance. Replace with any World Bank / FRED series.
+  current_account: { label: "Current account % GDP", unit: "% GDP", source: WORLDBANK, scale: diverging, mid: 0, domain: [-10, 10], cadence: annual }

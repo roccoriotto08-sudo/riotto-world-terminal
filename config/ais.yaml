@@ -1,0 +1,35 @@
+# AIS tanker tracking. Only AIS ship types 80-89 ("tanker", incl. crude, product,
+# chemical and many LNG/LPG carriers - AIS does not separate them) are stored.
+#
+# Coverage is TERRESTRIAL AIS: good near coasts/ports/straits, gaps mid-ocean. Vessels
+# that switch AIS off ("dark" tankers) are invisible by definition.
+
+stale_after_minutes: 120      # position older than this -> drawn dimmed, labelled STALE
+drop_after_hours: 72          # not shown at all after this (kept in history)
+track_min_minutes: 15         # store a track point at most every N minutes per vessel
+track_retention_days: 10
+
+# Size class from AIS length overall (A+B, metres). Approximate industry bands.
+classes:
+  - { name: VLCC,    min_len: 320, laden_draught_m: 17.0 }
+  - { name: Suezmax, min_len: 250, laden_draught_m: 14.5 }
+  - { name: Aframax, min_len: 220, laden_draught_m: 12.5 }
+  - { name: Panamax, min_len: 180, laden_draught_m: 11.0 }
+  - { name: MR,      min_len: 140, laden_draught_m: 9.5 }
+  - { name: Small,   min_len: 0,   laden_draught_m: 6.0 }
+
+# AISStream.io subscription boxes ([[lat1, lon1], [lat2, lon2]]). Keep to oil-relevant areas:
+# a global box is a firehose. Max 1 subscription update/second; 3 connections per account.
+aisstream_boxes:
+  - { name: "Persian Gulf / Hormuz",  box: [[22.0, 47.0], [31.0, 60.0]] }
+  - { name: "Red Sea / Bab el-Mandeb", box: [[11.0, 32.0], [30.0, 52.0]] }
+  - { name: "Suez / East Med",        box: [[30.0, 25.0], [37.5, 36.5]] }
+  - { name: "Malacca / Singapore",    box: [[-2.0, 95.0], [8.0, 106.0]] }
+  - { name: "US Gulf Coast",          box: [[24.0, -98.0], [31.0, -82.0]] }
+  - { name: "North Sea / Channel",    box: [[49.0, -6.0], [61.0, 10.0]] }
+  - { name: "Black Sea / Bosporus",   box: [[40.0, 27.0], [47.0, 42.0]] }
+  - { name: "China east coast",       box: [[22.0, 113.0], [40.0, 124.0]] }
+  - { name: "Cape of Good Hope",      box: [[-38.0, 15.0], [-30.0, 32.0]] }
+  - { name: "Panama",                 box: [[6.0, -82.0], [11.0, -77.0]] }
+  - { name: "West India (Jamnagar)",  box: [[17.0, 66.0], [24.0, 74.0]] }
+  - { name: "Baltic (Primorsk/Ust-Luga)", box: [[54.0, 10.0], [61.0, 31.0]] }

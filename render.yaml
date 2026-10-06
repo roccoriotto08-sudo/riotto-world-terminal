@@ -1,0 +1,21 @@
+# Render Blueprint (alternative to Railway). Free plans sleep and have no disk, so use a paid
+# instance with a disk for an always-on terminal that keeps its history.
+services:
+  - type: web
+    name: riotto-world-terminal
+    runtime: docker
+    plan: starter
+    healthCheckPath: /healthz
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: PUBLIC_MODE
+        value: "true"
+      - key: FRED_API_KEY
+        sync: false
+      - key: EIA_API_KEY
+        sync: false
+      - key: AISSTREAM_API_KEY
+        sync: false

@@ -1,0 +1,110 @@
+# Alert rules. Evaluated ONLY when an adapter ingests an observation that was not
+# in the database before (a new observation_date), and only if that observation
+# is within `fresh_days` of today - so first-run history backfills do not fire
+# a flood of stale alerts. Each alert stores the exact data points it used.
+#
+# Read-through `p` is an analyst-set PRIOR probability that the listed asset moves
+# in the stated direction over the next ~5 sessions. It is a config value, not a
+# model output, and the UI labels it "prior".
+#
+# Types:
+#   pct_change      : (value / reference - 1) * 100 vs the obs ~`lookback_days` earlier (same source)
+#   abs_change      : value - reference (in metric units) vs the previous obs
+#   baseline_ratio  : avg(last recent_days) vs avg(prior baseline_days), in %
+#   level_and_change: value < level AND change over lookback_days < change_lt
+
+rules:
+  - id: oil_output_drop_mom
+    name: "Crude output drop m/m"
+    type: pct_change
+    metric: crude_prod
+    entities: "*"
+    lookback_days: 31
+    tolerance_days: 10
+    trigger: { lt: -3.0 }          # matches settings.alerts.production_drop_mom_pct
+    min_value: 300                 # ignore producers under 300 kb/d (noise)
+    fresh_days: 150                # JODI/EIA report with a 1-3 month lag
+    severity: 4
+    readthrough:
+      text: "{name} crude output {pct:+.1f}% m/m to {value:,.0f} kb/d ({period})"
+      assets:
+        - { asset: BRENT, direction: up, p: 0.58 }
+        - { asset: "Tankers (FRO, DHT)", direction: down, p: 0.52 }
+
+  - id: chokepoint_flow_drop
+    name: "Chokepoint transits below baseline"
+    type: baseline_ratio
+    metric: transits_total
+    entities: "*"
+    recent_days: 7
+    baseline_days: 90
+    trigger: { lt: -35.0 }
+    fresh_days: 21                 # PortWatch publishes with ~1 week lag
+    severity: 5
+    readthrough:
+      text: "{name} 7d avg transits {pct:+.0f}% vs 90d baseline ({recent:.1f}/d vs {baseline:.1f}/d)"
+      assets:
+        - { asset: BRENT, direction: up, p: 0.62 }
+        - { asset: "Tanker rates / FRO", direction: up, p: 0.60 }
+        - { asset: TTF, direction: up, p: 0.55 }
+
+  - id: policy_rate_change
+    name: "Policy rate change"
+    type: abs_change
+    metric: policy_rate
+    entities: "*"
+    trigger: { abs_gte: 0.05 }
+    fresh_days: 10
+    severity: 3
+    readthrough:
+      text: "{name} policy rate {delta:+.2f}pp to {value:.2f}%"
+      assets:
+        - { asset: "{name} FX", direction: "{dir_up_if_hike}", p: 0.55 }
+        - { asset: "{name} 2Y yield", direction: "{dir_up_if_hike}", p: 0.65 }
+
+  - id: us_curve_inversion_deepens
+    name: "US 2s10s inversion deepens"
+    type: level_and_change
+    metric: spread
+    entities: [US2S10S]
+    level: 0.0
+    lookback_days: 7
+    change_lt: -0.10               # -10bp w/w while inverted
+    fresh_days: 5
+    severity: 3
+    readthrough:
+      text: "2s10s {value_bp:+.0f}bp, {change_bp:+.0f}bp w/w while inverted"
+      assets:
+        - { asset: "Regional banks (KRE)", direction: down, p: 0.56 }
+        - { asset: UST10Y, direction: down, p: 0.52 }
+
+  - id: brent_daily_shock
+    name: "Brent daily move > 5%"
+    type: pct_change
+    metric: price
+    entities: [BRENT]
+    lookback_days: 1
+    tolerance_days: 4
+    trigger: { abs_gt: 5.0 }
+    fresh_days: 5
+    severity: 3
+    readthrough:
+      text: "Brent {pct:+.1f}% d/d to ${value:.2f}"
+      assets:
+        - { asset: "E&Ps (XOP)", direction: "{dir_same}", p: 0.70 }
+        - { asset: "Airlines (JETS)", direction: "{dir_opp}", p: 0.62 }
+
+  - id: us_crude_stocks_draw
+    name: "Large US crude draw (EIA WPSR)"
+    type: pct_change
+    metric: crude_stocks_comm
+    entities: [USA]
+    lookback_days: 7
+    tolerance_days: 3
+    trigger: { lt: -1.5 }
+    fresh_days: 10
+    severity: 2
+    readthrough:
+      text: "US commercial crude stocks {pct:+.1f}% w/w to {value:.1f}mb"
+      assets:
+        - { asset: WTI, direction: up, p: 0.55 }

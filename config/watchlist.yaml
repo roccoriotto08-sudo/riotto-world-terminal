@@ -1,0 +1,17 @@
+# Portfolio overlay. [TICKERS] placeholder -> example book below; replace with yours.
+# geographies: ISO3 countries whose events/alerts can affect the name
+# commodities: KPI/asset ids (WTI, BRENT, HH, TTF, JKM, COPPER, GOLD, URANIUM) or
+#              commodity tags (OIL, GAS, LNG, COPPER, URANIUM, SEMIS, GRAINS)
+# chokepoints: chokepoint ids from config/reference/chokepoints.yaml
+# market: symbol per provider for live prices (optional)
+# news_aliases: company names that tag a headline with this ticker (the ticker itself also matches)
+
+holdings:
+  - { ticker: XOM, news_aliases: [Exxon, ExxonMobil],  side: long,  name: "Exxon Mobil",        geographies: [USA, GUY, QAT, AUS, PNG], commodities: [WTI, BRENT, HH, OIL, LNG], chokepoints: [HORMUZ] }
+  - { ticker: SHEL, news_aliases: [Shell], side: long,  name: "Shell",              geographies: [GBR, NLD, NGA, QAT, AUS, BRA], commodities: [BRENT, TTF, LNG, OIL], chokepoints: [HORMUZ, SUEZ, BAB] }
+  - { ticker: FRO, news_aliases: [Frontline],  side: long,  name: "Frontline",          geographies: [], commodities: [OIL], chokepoints: [HORMUZ, BAB, SUEZ, MALACCA, CAPE] }
+  - { ticker: LNG, news_aliases: [Cheniere],  side: long,  name: "Cheniere",           geographies: [USA], commodities: [HH, TTF, JKM, LNG], chokepoints: [PANAMA] }
+  - { ticker: FCX, news_aliases: [Freeport-McMoRan],  side: long,  name: "Freeport-McMoRan",   geographies: [IDN, PER, CHL, USA], commodities: [COPPER, GOLD], chokepoints: [] }
+  - { ticker: CCJ, news_aliases: [Cameco],  side: long,  name: "Cameco",             geographies: [CAN, KAZ], commodities: [URANIUM], chokepoints: [] }
+  - { ticker: TSM, news_aliases: [TSMC, Taiwan Semiconductor],  side: short, name: "TSMC",               geographies: [TWN, CHN], commodities: [SEMIS], chokepoints: [TAIWAN] }
+  - { ticker: DAL, news_aliases: [Delta Air Lines, Delta Air],  side: short, name: "Delta Air Lines",    geographies: [USA], commodities: [BRENT, OIL], chokepoints: [] }

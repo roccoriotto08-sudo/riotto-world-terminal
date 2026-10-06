@@ -1,0 +1,47 @@
+# Live news: publishers' own RSS feeds. Only the headline, source, time and link are stored
+# and shown (no article text); clicking opens the publisher's page.
+# topics on a feed are defaults; keyword rules below add more per headline.
+# All feeds checked reachable on 2026-10-05. MarketWatch "marketpulse" excluded (stale since 2025).
+
+retention_days: 14
+
+feeds:
+  # --- war / geopolitics ---
+  - { id: bbc_world,    name: BBC World,        url: "https://feeds.bbci.co.uk/news/world/rss.xml",                       topics: [WORLD] }
+  - { id: aljazeera,    name: Al Jazeera,       url: "https://www.aljazeera.com/xml/rss/all.xml",                         topics: [WORLD] }
+  - { id: npr_world,    name: NPR World,        url: "https://feeds.npr.org/1004/rss.xml",                                topics: [WORLD] }
+  - { id: guardian_wld, name: Guardian World,   url: "https://www.theguardian.com/world/rss",                             topics: [WORLD] }
+  - { id: defensenews,  name: Defense News,     url: "https://www.defensenews.com/arc/outboundfeeds/rss/?outputType=xml", topics: [WAR] }
+  # --- oil / energy / shipping ---
+  - { id: oilprice,     name: OilPrice.com,     url: "https://oilprice.com/rss/main",                                     topics: [OIL] }
+  - { id: cnbc_energy,  name: CNBC Energy,      url: "https://www.cnbc.com/id/19836768/device/rss/rss.html",              topics: [OIL] }
+  - { id: eia_tie,      name: EIA Today in Energy, url: "https://www.eia.gov/rss/todayinenergy.xml",                      topics: [OIL] }
+  - { id: gcaptain,     name: gCaptain,         url: "https://gcaptain.com/feed/",                                        topics: [SHIPPING] }
+  - { id: hellenic,     name: Hellenic Shipping News, url: "https://www.hellenicshippingnews.com/feed/",                  topics: [SHIPPING] }
+  # --- US equities / markets ---
+  - { id: cnbc_top,     name: CNBC Top News,    url: "https://www.cnbc.com/id/100003114/device/rss/rss.html",             topics: [MARKETS] }
+  - { id: cnbc_markets, name: CNBC Markets,     url: "https://www.cnbc.com/id/15839069/device/rss/rss.html",              topics: [EQUITIES, MARKETS] }
+  - { id: mw_top,       name: MarketWatch,      url: "https://feeds.content.dowjones.io/public/rss/mw_topstories",        topics: [MARKETS] }
+  - { id: yahoo_fin,    name: Yahoo Finance,    url: "https://finance.yahoo.com/news/rssindex",                           topics: [EQUITIES] }
+  - { id: sa_currents,  name: Seeking Alpha,    url: "https://seekingalpha.com/market_currents.xml",                      topics: [EQUITIES, MARKETS] }
+  - { id: investing_cm, name: Investing.com Commodities, url: "https://www.investing.com/rss/news_11.rss",                 topics: [MARKETS] }
+  # --- macro / central banks ---
+  - { id: fed_press,    name: Federal Reserve,  url: "https://www.federalreserve.gov/feeds/press_all.xml",                topics: [MACRO] }
+
+# Headline keyword rules (case-insensitive, whole-word-ish). A headline gets every matching topic.
+topics:
+  WAR:      [war, wars, missile, missiles, drone, drones, airstrike, airstrikes, strike, strikes, attack, attacks, troops, military,
+             ceasefire, invasion, shelling, frontline, nato, pentagon, houthi, houthis, hezbollah, hamas, gaza, ukraine, kyiv, kremlin,
+             israel, iran, idf, warship, navy, bombers, artillery, insurgents, militants, sanctions, coup]
+  OIL:      [oil, crude, opec, "opec+", brent, wti, barrel, barrels, refinery, refineries, refining, gasoline, diesel, lng, "natural gas",
+             aramco, petroleum, shale, upstream, pipeline, pipelines, spr, fuel, energy, exxon, chevron, shell, bp, totalenergies, conocophillips]
+  SHIPPING: [tanker, tankers, shipping, vessel, vessels, freight, port, ports, suez, hormuz, "red sea", "bab el-mandeb", malacca,
+             "panama canal", maritime, seafarers, container, vlcc, shipowner, shipowners, dark fleet, shadow fleet]
+  EQUITIES: [stock, stocks, shares, "s&p", "s&p 500", nasdaq, dow, earnings, ipo, buyback, rally, selloff, sell-off, "wall street",
+             valuation, upgrade, downgrade, guidance, nvidia, apple, microsoft, tesla, amazon, meta, alphabet]
+  MACRO:    [fed, fomc, powell, inflation, cpi, pce, payrolls, jobs, unemployment, "rate cut", "rate hike", "interest rates", treasury,
+             treasuries, yields, "bond market", ecb, "bank of japan", boj, "bank of england", recession, gdp, tariff, tariffs, dollar]
+
+# Headlines with any of these words are flagged HOT (shown in red).
+hot_words: [breaking, attack, attacks, explosion, explosions, seized, seizure, missile, missiles, invasion, collapse, plunge, plunges, surge, surges,
+            soars, crash, halts, shut, shutdown, blockade, sanctions, emergency, killed, strike]

@@ -1,0 +1,115 @@
+# Persistent KPI strip. Each KPI is an (entity, metric) pair that one or more
+# adapters write. The strip shows the source with the most recent observation;
+# ties go to the first source listed. Changes (1D/1W/1M) are always computed
+# within ONE source's history - sources are never spliced together.
+#
+# change: pct -> % change ; bp -> basis-point change (for yields/spreads stored in %)
+# market: symbol per market provider (only used if MARKET_PROVIDER is set).
+#         Verify symbols for your plan (e.g. Twelve Data /symbol_search); unknown
+#         symbols are logged as errors for that KPI, never filled.
+
+kpis:
+  - id: WTI
+    label: WTI
+    entity: WTI
+    metric: price
+    unit: USD/bbl
+    change: pct
+    sources: [MARKET, FRED]
+    market: { twelvedata: "WTI/USD", polygon: null, finnhub: null }
+  - id: BRENT
+    label: BRENT
+    entity: BRENT
+    metric: price
+    unit: USD/bbl
+    change: pct
+    sources: [MARKET, FRED]
+    market: { twelvedata: "XBR/USD", polygon: null, finnhub: null }
+  - id: TTF
+    label: TTF
+    entity: TTF
+    metric: price
+    unit: USD/MMBtu
+    change: pct
+    sources: [MARKET, FRED]          # FRED = IMF monthly average, not the front-month future
+    market: { twelvedata: null, polygon: null, finnhub: null }
+  - id: DXY
+    label: USD BROAD
+    entity: USD_INDEX
+    metric: level
+    unit: index
+    change: pct
+    sources: [MARKET, FRED]          # FRED DTWEXBGS is the Fed broad index, NOT ICE DXY
+    market: { twelvedata: "DXY", polygon: null, finnhub: null }
+  - id: UST10Y
+    label: US 10Y
+    entity: UST10Y
+    metric: yield
+    unit: "%"
+    change: bp
+    sources: [FRED]
+  - id: US2S10S
+    label: 2s10s
+    entity: US2S10S
+    metric: spread
+    unit: "%"
+    change: bp
+    sources: [FRED]
+  - id: VIX
+    label: VIX
+    entity: VIX
+    metric: level
+    unit: index
+    change: pct
+    sources: [MARKET, FRED]
+    market: { twelvedata: "VIX", polygon: "I:VIX", finnhub: null }
+  - id: HYOAS
+    label: HY OAS
+    entity: HY_OAS
+    metric: spread
+    unit: "%"
+    change: bp
+    sources: [FRED]
+  - id: COPPER
+    label: COPPER
+    entity: COPPER
+    metric: price
+    unit: USD/t
+    change: pct
+    sources: [MARKET, FRED]          # FRED = IMF monthly average (USD/t)
+    market: { twelvedata: "XCU/USD", polygon: null, finnhub: null }
+  - id: GOLD
+    label: GOLD
+    entity: GOLD
+    metric: price
+    unit: USD/ozt
+    change: pct
+    sources: [MARKET]                # no free daily gold series exists on FRED any more
+    market: { twelvedata: "XAU/USD", polygon: "C:XAUUSD", finnhub: "OANDA:XAU_USD" }
+  - id: USDJPY
+    label: USDJPY
+    entity: USDJPY
+    metric: fx
+    unit: JPY per USD
+    change: pct
+    sources: [MARKET, FRED]
+    market: { twelvedata: "USD/JPY", polygon: "C:USDJPY", finnhub: "OANDA:USD_JPY" }
+  - id: SPX
+    label: SPX
+    entity: SPX
+    metric: level
+    unit: index
+    change: pct
+    sources: [MARKET, FRED]          # benchmark; swap for your own (e.g. MSCI ACWI via market provider)
+    market: { twelvedata: "SPX", polygon: "I:SPX", finnhub: null }
+
+# Secondary commodity panel (layer 5). Same rules as above.
+commodities:
+  - { id: HH,      label: HENRY HUB, entity: HH,      metric: price, unit: USD/MMBtu, change: pct, sources: [MARKET, FRED], market: { twelvedata: "NG/USD" }, hub: [-92.0, 29.9] }
+  - { id: JKM,     label: "ASIA LNG (JP import)", entity: JKM_PROXY, metric: price, unit: USD/MMBtu, change: pct, sources: [FRED], hub: [139.8, 35.4] }
+  - { id: URANIUM, label: URANIUM,   entity: URANIUM, metric: price, unit: USD/lb,    change: pct, sources: [FRED], hub: [-106.3, 52.1] }
+  - { id: WTI,     label: WTI,       entity: WTI,     metric: price, unit: USD/bbl,   change: pct, sources: [MARKET, FRED], hub: [-96.77, 35.98] }
+  - { id: BRENT,   label: BRENT,     entity: BRENT,   metric: price, unit: USD/bbl,   change: pct, sources: [MARKET, FRED], hub: [1.5, 58.5] }
+  - { id: TTF,     label: TTF,       entity: TTF,     metric: price, unit: USD/MMBtu, change: pct, sources: [MARKET, FRED], hub: [5.3, 52.4] }
+  - { id: COPPER,  label: COPPER,    entity: COPPER,  metric: price, unit: USD/t,     change: pct, sources: [MARKET, FRED], hub: [-0.09, 51.51] }
+  - { id: GOLD,    label: GOLD,      entity: GOLD,    metric: price, unit: USD/ozt,   change: pct, sources: [MARKET], hub: [-74.0, 40.7] }

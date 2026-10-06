@@ -1,0 +1,15 @@
+# Central bank meeting calendar, MAINTAINED BY YOU (no free API covers all banks).
+# The UI shows these with a "cfg" tag and the verified flag. Set verified: true once
+# you have checked a date against source_url. Entity = ISO3, or EA for the ECB.
+
+banks:
+  - entity: USA
+    bank: FOMC
+    source_url: https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
+    verified: false
+    meetings: ["2026-10-28", "2026-12-09"]      # decision days (2nd day of each meeting)
+  - { entity: EA,  bank: ECB, source_url: "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html", verified: false, meetings: [] }
+  - { entity: GBR, bank: BoE, source_url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates", verified: false, meetings: [] }
+  - { entity: JPN, bank: BoJ, source_url: "https://www.boj.or.jp/en/mopo/mpmsche_minu/index.htm", verified: false, meetings: [] }
+  - { entity: CAN, bank: BoC, source_url: "https://www.bankofcanada.ca/press/upcoming-events/", verified: false, meetings: [] }
+  - { entity: AUS, bank: RBA, source_url: "https://www.rba.gov.au/schedules-events/board-meeting-schedules.html", verified: false, meetings: [] }

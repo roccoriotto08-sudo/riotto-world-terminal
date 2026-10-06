@@ -1,0 +1,11 @@
+# secrets & local state - never commit
+.env
+.venv/
+data/*.db
+data/*.db-*
+__pycache__/
+.pytest_cache/
+.DS_Store
+.claude/
+data/*.log
+.tools/
